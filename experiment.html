@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI助手服务失败响应</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://via.placeholder.com/1200x800');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .chatbox {
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            background-color: #fdfdfd;
+            display: flex;
+            flex-direction: column;
+        }
+        .option-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-box button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option-box button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 60%;
+        }
+        .consumer {
+            align-self: flex-end;
+            background-color: #e9f5ff;
+            color: #0056b3;
+            text-align: right;
+        }
+        .ai {
+            align-self: flex-start;
+            background-color: #f1f1f1;
+            color: #333;
+            text-align: left;
+        }
+    </style>
+    <script>
+        function addMessage(sender, text) {
+            const chatbox = document.getElementById('chatbox');
+            const message = document.createElement('div');
+            message.classList.add('message', sender);
+            message.textContent = text;
+            chatbox.appendChild(message);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function handleOption(option) {
+            let userMessage = '';
+            let aiResponse = '';
+
+            if (option === 1) {
+                userMessage = '刚才提供的信息是错误的。';
+                aiResponse = '很抱歉给您带来困扰！我会立即重新检查并为您提供正确的信息。希望您能理解我们的努力。';
+                document.getElementById('level1').style.display = 'none';
+                document.getElementById('level2').style.display = 'block';
+            } else if (option === 2) {
+                userMessage = '为什么会出现这样的错误？';
+                aiResponse = '我完全理解您的担忧。这次的错误是我的责任，我们正在优化系统以避免类似情况再次发生。感谢您的耐心。';
+                document.getElementById('level2').style.display = 'none';
+                document.getElementById('level3').style.display = 'block';
+            } else if (option === 3) {
+                userMessage = '那我还能信任你吗？';
+                aiResponse = '您的信任对我们至关重要。我会用实际行动证明，确保您的每一次体验都准确无误。谢谢您的包容！';
+                document.getElementById('level3').style.display = 'none';
+                document.getElementById('level4').style.display = 'block';
+            } else {
+                userMessage = '好的，谢谢你的解释。';
+                aiResponse = '非常感谢您的理解！如果还有其他问题，请随时告诉我。祝您有美好的一天！';
+                document.getElementById('level4').style.display = 'none';
+            }
+
+            addMessage('consumer', userMessage);
+            setTimeout(() => {
+                addMessage('ai', aiResponse);
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; color: #0056b3;">AI助手服务失败响应</h1>
+        <div class="chatbox" id="chatbox">
+            <div class="message ai">您好！我可以帮您解决任何问题。</div>
+        </div>
+        <div class="option-box" id="level1">
+            <button onclick="handleOption(1)">刚才提供的信息是错误的。</button>
+        </div>
+        <div class="option-box" id="level2" style="display: none;">
+            <button onclick="handleOption(2)">为什么会出现这样的错误？</button>
+        </div>
+        <div class="option-box" id="level3" style="display: none;">
+            <button onclick="handleOption(3)">那我还能信任你吗？</button>
+        </div>
+        <div class="option-box" id="level4" style="display: none;">
+            <button onclick="handleOption(4)">好的，谢谢你的解释。</button>
+        </div>
+    </div>
+</body>
+</html>
